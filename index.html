@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Outlook Web App</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script type="module" src="auth.js"></script>
+</head>
+<body>
+  <main class="login-shell">
+    <aside class="brand-panel" aria-label="Microsoft Outlook">
+      <div class="outlook-mark outlook-mark--large" aria-hidden="true">
+        <span class="mark-back"></span>
+        <span class="mark-front"></span>
+      </div>
+    </aside>
+
+    <section class="login-panel">
+      <div class="login-content">
+        <header class="wordmark" aria-label="Outlook">
+          <div class="outlook-mark outlook-mark--small" aria-hidden="true">
+            <span class="mark-back"></span>
+            <span class="mark-front"></span>
+          </div>
+          <span>Outlook</span>
+        </header>
+
+        <p class="form-message" id="form-message" role="alert" aria-live="polite"></p>
+
+        <form class="login-form" id="login-form">
+          <div class="field-group">
+            <label for="username">Domain\user name</label>
+            <input id="username" name="username" type="text" placeholder="Domain\user name" autocomplete="username">
+          </div>
+          <div class="field-group">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" placeholder="Password" autocomplete="current-password">
+          </div>
+
+          <div class="submit-row">
+            <button class="submit-button" type="submit" aria-label="Sign in">
+              <span aria-hidden="true">&#8594;</span>
+            </button>
+            <button class="action-link" type="submit">Sign in</button>
+          </div>
+        </form>
+
+        <section class="signed-in" id="signed-in" hidden>
+          <p>Signed in as <strong id="signed-in-email"></strong></p>
+          <button class="logout-button" id="logout-button" type="button">Log out</button>
+        </section>
+
+        <footer class="login-footer">
+          <a href="mailto:help@example.com">Can't access your account?</a>
+        </footer>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
