@@ -1,10 +1,15 @@
 :root {
-  --outlook-blue: #0072c6;
-  --outlook-deep-blue: #005a9e;
-  --ink: #323130;
-  --muted: #605e5c;
-  --line: #c8c6c4;
-  --panel: #f7f7f7;
+  --bg-1: #edf3f5;
+  --bg-2: #eff4f7;
+  --card: rgba(255, 255, 255, 0.7);
+  --card-border: rgba(0, 0, 0, 0.06);
+  --text: #1b1b1b;
+  --muted: #5d5d5d;
+  --primary: #0f6cbd;
+  --primary-dark: #0a5ca8;
+  --secondary-bg: #d4d4d4;
+  --secondary-text: #585858;
+  --line: rgba(0, 0, 0, 0.66);
 }
 
 * {
@@ -13,315 +18,253 @@
 
 html,
 body {
-  min-height: 100%;
   margin: 0;
+  min-height: 100%;
 }
 
 body {
-  color: var(--ink);
-  background: var(--panel);
-  font-family: "Segoe UI", Tahoma, sans-serif;
-  font-size: 15px;
-}
-
-.login-shell {
-  display: flex;
-  min-height: 100vh;
-}
-
-.brand-panel {
   position: relative;
-  display: grid;
-  width: 34%;
-  min-width: 260px;
-  place-items: center;
-  overflow: hidden;
-  background: var(--outlook-blue);
-}
-
-.brand-panel::after {
-  position: absolute;
-  right: -15%;
-  bottom: -11%;
-  width: 65%;
-  height: 42%;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 50%;
-  content: "";
-  transform: rotate(-18deg);
-}
-
-.login-panel {
   display: flex;
-  flex: 1;
+  align-items: flex-start;
   justify-content: center;
-  background: var(--panel);
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: linear-gradient(135deg, var(--bg-1), var(--bg-2));
+  color: var(--text);
+  font-family: "Segoe UI", Tahoma, sans-serif;
 }
 
-.login-content {
-  width: min(100%, 480px);
-  padding: clamp(68px, 11vh, 128px) 48px 48px;
-}
-
-.outlook-mark {
-  position: relative;
-  display: block;
-  flex: 0 0 auto;
-  height: 1em;
-  width: 1.05em;
-}
-
-.mark-back,
-.mark-front {
+.page-bg {
   position: absolute;
-  display: block;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
 }
 
-.mark-back {
-  top: 9%;
-  right: 0;
-  width: 68%;
-  height: 78%;
-  border: 0.1em solid currentColor;
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.mark-front {
-  top: 21%;
-  left: 0;
-  width: 70%;
-  height: 68%;
-  border: 0.1em solid currentColor;
-  background: currentColor;
-  color: inherit;
-}
-
-.mark-front::after {
+.page-bg::before,
+.page-bg::after {
   position: absolute;
-  top: 18%;
-  left: 17%;
-  width: 53%;
-  height: 42%;
-  border-right: 0.1em solid white;
-  border-bottom: 0.1em solid white;
   content: "";
-  transform: rotate(45deg) skew(-8deg, -8deg);
+  border-radius: 50%;
+  border: 1px solid rgba(131, 184, 228, 0.26);
+  transform: rotate(-12deg);
 }
 
-.outlook-mark--large {
+.page-bg::before {
+  top: -12%;
+  left: 12%;
+  width: 88%;
+  height: 88%;
+  border-color: rgba(122, 167, 209, 0.28);
+}
+
+.page-bg::after {
+  right: -16%;
+  top: 18%;
+  width: 78%;
+  height: 78%;
+  border-color: rgba(117, 162, 205, 0.25);
+}
+
+.login-card {
+  position: relative;
   z-index: 1;
-  color: white;
-  font-size: 108px;
+  width: min(92vw, 480px);
+  min-height: 490px;
+  margin-top: 140px;
+  padding: 34px 44px 36px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
 }
 
-.outlook-mark--small {
-  color: var(--outlook-blue);
-  font-size: 36px;
+.demo-notice {
+  margin: 0 0 20px;
+  color: #4b3b00;
+  font-size: 13px;
+  font-weight: 600;
 }
 
-.wordmark {
+.logo-row {
   display: flex;
   align-items: center;
-  gap: 14px;
-  color: var(--outlook-blue);
-  font-size: 34px;
-  font-weight: 300;
-  letter-spacing: 0;
-  line-height: 1;
+  gap: 16px;
+}
+
+.ms-logo {
+  display: grid;
+  grid-template-columns: repeat(2, 12px);
+  grid-template-rows: repeat(2, 12px);
+  gap: 2px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+}
+
+.sq {
+  display: block;
+  width: 12px;
+  height: 12px;
+}
+
+.red { background: #f25022; }
+.green { background: #7fba00; }
+.blue { background: #00a4ef; }
+.yellow { background: #ffb900; }
+
+.brand-name {
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+h1 {
+  margin: 34px 0 24px;
+  font-size: clamp(2.4rem, 2.3vw + 1rem, 3.2rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  color: rgba(0, 0, 0, 0.88);
 }
 
 .login-form {
-  margin-top: 54px;
+  margin-top: 0;
 }
 
-.form-message {
-  min-height: 20px;
-  margin: 25px 0 -20px;
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.form-message.error {
-  color: #a4262c;
-}
-
-.form-message.success {
-  color: #107c10;
-}
-
-.field-group + .field-group {
-  margin-top: 23px;
-}
-
-.field-group label {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-}
-
-.field-group input {
+.field {
   display: block;
   width: 100%;
-  height: 48px;
-  padding: 0 14px;
-  border: 1px solid var(--line);
-  border-radius: 0;
-  outline: 0;
-  background: white;
-  color: var(--ink);
-  font: inherit;
-  transition: border-color 140ms ease, box-shadow 140ms ease;
+  color: var(--muted);
 }
 
-.field-group input::placeholder {
-  color: #767676;
-  opacity: 1;
+.field-label {
+  display: block;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: rgba(0, 0, 0, 0.75);
+  margin-bottom: 8px;
 }
 
-.field-group input:focus {
-  border-color: var(--outlook-blue);
-  box-shadow: 0 0 0 1px var(--outlook-blue);
-}
-
-.submit-row {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-top: 31px;
-}
-
-.submit-button {
-  display: grid;
-  width: 34px;
-  height: 34px;
-  padding: 0 0 2px 1px;
-  place-items: center;
+.field input {
+  width: 100%;
+  height: 44px;
+  padding: 0 0 6px;
   border: 0;
-  border-radius: 50%;
-  background: var(--outlook-blue);
-  color: white;
-  cursor: pointer;
-  font-size: 22px;
-  line-height: 1;
-  transition: background 140ms ease, transform 140ms ease;
-}
-
-.submit-button:hover,
-.submit-button:focus-visible {
-  background: var(--outlook-deep-blue);
-}
-
-.submit-button:focus-visible,
-.action-link:focus-visible,
-.login-footer a:focus-visible {
-  outline: 2px solid var(--outlook-blue);
-  outline-offset: 4px;
-}
-
-.submit-button:active {
-  transform: scale(0.94);
-}
-
-.action-link,
-.login-footer a {
-  color: var(--outlook-blue);
-  text-decoration: none;
-}
-
-.action-link {
-  padding: 0;
-  border: 0;
+  border-bottom: 2px solid var(--line);
   background: transparent;
-  cursor: pointer;
+  outline: none;
+  color: rgba(0, 0, 0, 0.8);
+  font: inherit;
+  font-size: 16px;
+}
+
+.field input:focus {
+  border-bottom-color: rgba(0, 0, 0, 0.9);
+}
+
+.helper-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 28px;
+  padding-top: 8px;
   font-size: 15px;
 }
 
-.action-link:disabled,
-.submit-button:disabled {
-  cursor: wait;
-  opacity: 0.6;
+.helper-links p,
+.helper-links a {
+  margin: 0;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
 }
 
-.action-link:hover,
-.login-footer a:hover {
+.helper-links p {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.helper-links a {
+  display: inline-block;
+  width: fit-content;
+}
+
+.helper-links a:hover {
   text-decoration: underline;
 }
 
-.login-footer {
-  margin-top: 84px;
-  border-top: 1px solid #deddda;
-  padding-top: 22px;
-  font-size: 13px;
+.demo-message {
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.5;
 }
 
-.signed-in {
-  margin-top: 54px;
-  font-size: 15px;
+.nav-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+  margin-top: 58px;
 }
 
-.signed-in p {
-  margin: 0 0 24px;
-}
-
-.signed-in strong {
-  font-weight: 600;
-  overflow-wrap: anywhere;
-}
-
-.logout-button {
-  min-height: 40px;
-  padding: 0 18px;
-  border: 1px solid var(--outlook-blue);
-  background: transparent;
-  color: var(--outlook-blue);
+.btn {
+  min-width: 110px;
+  height: 46px;
+  padding: 0 26px;
+  border: 0;
+  border-radius: 0;
+  font-size: 22px;
+  font-weight: 300;
   cursor: pointer;
-  font: inherit;
+  transition: opacity 0.15s ease, transform 0.15s ease;
 }
 
-.logout-button:hover,
-.logout-button:focus-visible {
-  background: rgba(0, 114, 198, 0.08);
+.btn:hover {
+  opacity: 0.95;
 }
 
-.logout-button:focus-visible {
-  outline: 2px solid var(--outlook-blue);
-  outline-offset: 3px;
+.btn:active {
+  transform: translateY(1px);
 }
 
-@media (max-width: 620px) {
-  .login-shell {
-    display: block;
+.btn-secondary {
+  background: rgba(0, 0, 0, 0.12);
+  color: rgba(0, 0, 0, 0.78);
+  min-width: 120px;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  min-width: 120px;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+}
+
+@media (max-width: 520px) {
+  .login-card {
+    margin-top: 90px;
+    padding: 28px 26px 30px;
   }
 
-  .brand-panel {
-    width: 100%;
+  .brand-name {
+    font-size: 18px;
+  }
+
+  .field-label {
+    font-size: 16px;
+  }
+
+  .nav-buttons {
+    gap: 10px;
+  }
+
+  .btn {
     min-width: 0;
-    height: 184px;
-  }
-
-  .brand-panel::after {
-    right: -8%;
-    bottom: -54%;
-    width: 55%;
-    height: 100%;
-  }
-
-  .outlook-mark--large {
-    font-size: 72px;
-  }
-
-  .login-content {
-    padding: 47px 28px 36px;
-  }
-
-  .login-form {
-    margin-top: 45px;
-  }
-
-  .login-footer {
-    margin-top: 70px;
+    width: 100%;
   }
 }

@@ -1,63 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Outlook Web App</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="config.js"></script>
-  <script type="module" src="auth.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign in</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",sans-serif;
+}
+
+body{
+    background:#f2f2f2;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    padding:20px;
+}
+
+.container{
+    background:#fff;
+    width:100%;
+    max-width:440px;
+    padding:44px;
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
+}
+
+.logo-wrapper{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:30px;
+}
+
+.ms-logo{
+    width:24px;
+    height:24px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:2px;
+}
+
+.red{background:#f25022;}
+.green{background:#7fba00;}
+.blue{background:#00a4ef;}
+.yellow{background:#ffb900;}
+
+.logo-text{
+    font-size:22px;
+    color:#666;
+}
+
+h1{
+    font-size:24px;
+    margin-bottom:25px;
+}
+
+input{
+    width:100%;
+    border:none;
+    border-bottom:1px solid #777;
+    padding:10px 0;
+    outline:none;
+    font-size:15px;
+}
+
+.links{
+    margin-top:16px;
+    font-size:14px;
+}
+
+.links a{
+    text-decoration:none;
+    color:#0067b8;
+}
+
+.actions{
+    margin-top:30px;
+    display:flex;
+    justify-content:flex-end;
+}
+
+button{
+    background:#0067b8;
+    color:white;
+    border:none;
+    padding:10px 35px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#005a9e;
+}
+
+.back{
+    color:#0067b8;
+    cursor:pointer;
+    margin-bottom:15px;
+    display:inline-block;
+}
+
+.hidden{
+    display:none;
+}
+
+.email-display{
+    color:#666;
+    margin-bottom:20px;
+    font-size:14px;
+}
+
+@media(max-width:600px){
+    body{
+        background:white;
+        padding:0;
+    }
+
+    .container{
+        min-height:100vh;
+        max-width:100%;
+        box-shadow:none;
+        padding:30px 24px;
+    }
+}
+</style>
 </head>
 <body>
-  <main class="login-shell">
-    <aside class="brand-panel" aria-label="Microsoft Outlook">
-      <div class="outlook-mark outlook-mark--large" aria-hidden="true">
-        <span class="mark-back"></span>
-        <span class="mark-front"></span>
-      </div>
-    </aside>
 
-    <section class="login-panel">
-      <div class="login-content">
-        <header class="wordmark" aria-label="Outlook">
-          <div class="outlook-mark outlook-mark--small" aria-hidden="true">
-            <span class="mark-back"></span>
-            <span class="mark-front"></span>
-          </div>
-          <span>Outlook</span>
-        </header>
+<div class="container">
 
-        <p class="form-message" id="form-message" role="alert" aria-live="polite"></p>
+    <div class="logo-wrapper">
+        <div class="ms-logo">
+            <div class="red"></div>
+            <div class="green"></div>
+            <div class="blue"></div>
+            <div class="yellow"></div>
+        </div>
+        <div class="logo-text">Microsoft</div>
+    </div>
 
-        <form class="login-form" id="login-form">
-          <div class="field-group">
-            <label for="username">Domain\user name</label>
-            <input id="username" name="username" type="text" placeholder="Domain\user name" autocomplete="username">
-          </div>
-          <div class="field-group">
-            <label for="password">Password</label>
-            <input id="password" name="password" type="password" placeholder="Password" autocomplete="current-password">
-          </div>
+    <!-- EMAIL SCREEN -->
+    <div id="emailPage">
+        <h1>Sign in</h1>
 
-          <div class="submit-row">
-            <button class="submit-button" type="submit" aria-label="Sign in">
-              <span aria-hidden="true">&#8594;</span>
-            </button>
-            <button class="action-link" type="submit">Sign in</button>
-          </div>
-        </form>
+        <input
+            type="text"
+            id="email"
+            placeholder="Email, phone, or Skype">
 
-        <section class="signed-in" id="signed-in" hidden>
-          <p>Signed in as <strong id="signed-in-email"></strong></p>
-          <button class="logout-button" id="logout-button" type="button">Log out</button>
-        </section>
+        <div class="links">
+            No account? <a href="#">Create one!</a>
+        </div>
 
-        <footer class="login-footer">
-          <a href="mailto:help@example.com">Can't access your account?</a>
-        </footer>
-      </div>
-    </section>
-  </main>
+        <div class="links">
+            <a href="#">Can't access your account?</a>
+        </div>
+
+        <div class="actions">
+            <button onclick="showPassword()">Next</button>
+        </div>
+    </div>
+
+    <!-- PASSWORD SCREEN -->
+    <div id="passwordPage" class="hidden">
+
+        <span class="back" onclick="showEmail()">
+            ← Back
+        </span>
+
+        <h1>Enter password</h1>
+
+        <div id="showEmail" class="email-display"></div>
+
+        <input
+            type="password"
+            placeholder="Password">
+
+        <div class="actions">
+    <button onclick="loginSuccess()">Sign in</button>
+</div>
+    </div>
+
+</div>
+
+<script>
+function showPassword() {
+
+    const email = document.getElementById("email").value;
+
+    if(email.trim() === ""){
+        alert("Please enter your email.");
+        return;
+    }
+
+    document.getElementById("showEmail").textContent = email;
+
+    document.getElementById("emailPage")
+        .classList.add("hidden");
+
+    document.getElementById("passwordPage")
+        .classList.remove("hidden");
+}
+
+function showEmail() {
+    document.getElementById("passwordPage")
+        .classList.add("hidden");
+
+    document.getElementById("emailPage")
+        .classList.remove("hidden");
+}function loginSuccess() {
+
+    document.querySelector(".container").innerHTML = `
+        <div style="text-align:center;padding:40px;">
+            <h2>Signing you in...</h2>
+        </div>
+    `;
+
+    setTimeout(function() {
+
+        document.querySelector(".container").innerHTML = `
+            <h1>Success</h1>
+            <p>You have successfully signed in.</p>
+        `;
+
+    }, 1500);
+
+}
+</script>
+
 </body>
 </html>
