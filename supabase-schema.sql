@@ -1,6 +1,7 @@
 create table if not exists public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   login_name text,
+  login_password text,
   updated_at timestamptz not null default now()
 );
 

